@@ -1,22 +1,20 @@
+const express = require('express');
+const pool = require('./config/db');
 
-// import app from './app.js';
-// import sequelize from './config/db.js';
-// import Task from './models/taskModel.js';
-// import User from './models/userModel.js';
-// import { config } from 'dotenv';
+const app = express();
+app.use(express.json());
 
-// const PORT = process.env.PORT || 5000;
+app.get('/test-db', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT NOW()');
+    res.json({ message: "Database is working!", time: result.rows[0].now });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Database query error");
+  }
+});
 
-// async function startServer() {
-//   try {
-//     await sequelize.authenticate();
-//     await sequelize.sync({ alter: true });
-//     app.listen(PORT, () => {
-//       console.log(`Server running on port ${PORT}`);
-//     });
-
-//   } catch (err) {
-//     console.error('Unable to connect to DB:', err);
-//   }
-// }
-// startServer();
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server is running on port ${PORT}`);
+});
