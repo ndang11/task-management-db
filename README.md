@@ -15,9 +15,7 @@ Many productivity tools — like Todoist or Trello — rely on a secure backend 
 - Allow users to register and authenticate securely
 - Enable creating, reading, updating, and deleting tasks
 - Link tasks to users via assignments (who a task is assigned to / created by)
-- Support task status workflows (todo, in-progress, done)
 - Protect task routes with JWT-based authentication middleware
-- Provide pagination, filtering, and overdue query support
 - Seed sample data for testing and demo purposes
 
 ---
@@ -70,8 +68,8 @@ Many productivity tools — like Todoist or Trello — rely on a secure backend 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/task-management-api.git
-cd task-management-api
+git@github.com:ndang11/task-management-db.git
+cd task-management-db
 ```
 
 ### 2. Install dependencies
@@ -133,6 +131,7 @@ VALUES
 
 ```bash
 npm start
+ node index.js
 ```
 
 The API will start on `http://localhost:5000` (or the port set in `.env`).
@@ -390,6 +389,6 @@ Mark a task as `done` (sets the status to `done` and optionally records a comple
 ## 👨🏽‍💻 Author
 
 **Your Name**  
-Junior Fullstack Developer  
-📩 Email: your@email.com  
+ NDANG-KAH A
+📩 Email: ndangkahambei@email.com  
 🌍 Based in Cameroon | Open to remote opportunities
