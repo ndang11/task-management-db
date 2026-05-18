@@ -1,9 +1,10 @@
 import { Sequelize } from 'sequelize';
 import 'dotenv/config';
 
+export const jwtSecret = process.env.JWT_SECRET;
+
 let sequelize;
 
-// If a DATABASE_URL is present (Production/Render), use it directly!
 if (process.env.DATABASE_URL) {
   sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',
@@ -11,12 +12,11 @@ if (process.env.DATABASE_URL) {
     dialectOptions: {
       ssl: {
         require: true,
-        rejectUnauthorized: false // This line is mandatory for Render cloud connections
+        rejectUnauthorized: false
       }
     }
   });
 } else {
-  // Fallback to your local computer settings (Development)
   sequelize = new Sequelize(
     process.env.DB_NAME,
     process.env.DB_USER,
@@ -28,13 +28,6 @@ if (process.env.DATABASE_URL) {
       logging: false,
     }
   );
-}
-
-try {
-  await sequelize.authenticate();
-  console.log('✅ Sequelize successfully connected to the database!');
-} catch (error) {
-  console.error('❌ Unable to connect to the database:', error);
 }
 
 export default sequelize;
