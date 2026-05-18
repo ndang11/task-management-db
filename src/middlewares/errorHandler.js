@@ -1,14 +1,8 @@
-// export const errorHandler = (err, req, res, next) => {
-//   console.error(err);
-//   res.status(500).json({ error: err.message || 'Server Error' });
-// };
-
 
 export const errorHandler = (err, req, res, next) => {
   // Log the full error stack trace for debugging
   console.error(err.stack);
 
-  // Avoid sending stack trace to clients in production (optional)
   const response = {
     status: 'error',
     message: err.message || 'Internal Server Error',
