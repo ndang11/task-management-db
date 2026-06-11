@@ -2,7 +2,13 @@ import app from './src/app.js';
 import sequelize from './src/config/db.js';
 import { config } from 'dotenv';
 
+import User from './src/models/userModel.js';
+import Task from './src/models/taskModel.js';
+
 config();
+
+User.hasMany(Task, { foreignKey: 'userId' });
+Task.belongsTo(User, { foreignKey: 'userId' });
 
 const PORT = process.env.PORT || 5000;
 

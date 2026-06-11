@@ -4,7 +4,11 @@ import generateToken from '../utils/generateToken.js';
 
 export const register = async (req, res, next) => {
   try {
-    const { email, password, name } = req.body;
+    const { email, password, username } = req.body;
+
+    if (!email || !password || !username) {
+      return res.status(400).json({ message: 'Email, password, and username are required' });
+    }
 
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
@@ -16,7 +20,7 @@ export const register = async (req, res, next) => {
 
     const user = await User.create({
       email,
-      name,
+      username,
       password: hashedPassword,
     });
 
@@ -27,7 +31,7 @@ export const register = async (req, res, next) => {
       user: {
         id: user.id,
         email: user.email,
-        name: user.name,
+        username: user.username,
       },
     });
   } catch (error) {
@@ -38,6 +42,11 @@ export const register = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password are required' });
+    }
+
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
@@ -56,7 +65,7 @@ export const login = async (req, res, next) => {
       user: {
         id: user.id,
         email: user.email,
-        name: user.name,
+        username: user.username,
       },
     });
   } catch (error) {
